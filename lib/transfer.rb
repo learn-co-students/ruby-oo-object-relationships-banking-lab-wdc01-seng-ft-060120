@@ -1,4 +1,5 @@
-require_relative "./bank_account.rb"
+require_relative './bank_account.rb'
+
 class Transfer
   # your code here
   attr_reader :sender, :receiver
@@ -40,5 +41,6 @@ class Transfer
       @reverse_amount = 0
     end 
   end
+end
 
 end
