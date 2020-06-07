@@ -13,16 +13,18 @@ class BankAccount
         self.balance += amount
     end
 
+    def pay(amount)
+        self.balance -= amount
+    end
+
     def display_balance
         return "Your balance is $#{self.balance}."
     end
 
-    def valid?
-        valid = true
-        if self.status != "open" || self.balance  <= 0
-            valid = false
-        end
-        return valid
+    def valid?        
+        return false if self.status != "open" || self.balance  <= 0
+
+        return true
     end 
 
     def close_account
