@@ -13,13 +13,13 @@ class Transfer#=====================================
     @@all_ids << @id
   end
 
+  #returns true <==> sender has funds && both accts valid
   def valid?
     return \
     (@sender.valid? && @receiver.valid? && (@sender.balance - self.amount >= 0))  
   end
 
-  def execute_transaction
-    #binding.pry
+  def execute_transaction   
     if(self.valid? && (self.status != "complete"))
       send_money(self.sender, self.receiver, self.amount)
       return self.status = "complete"
@@ -29,14 +29,15 @@ class Transfer#=====================================
     end
   end
   
-  def reverse_transfer
+  def reverse_transfer#<==>it has been completed
     return "Transfer was not yet executed" if self.status != "complete"
     send_money(self.receiver,self.sender,self.amount)
     self.status = "reversed"    
   end
   #--------------------------------
   private
-
+  #put this here for testing
+  #just assigns an id number to each transaction
   def assign_id
     new_id = rand(99999)
     flag = false
@@ -50,6 +51,7 @@ class Transfer#=====================================
     return new_id
   end
 
+  #helper that does the actual transfer, no conditional logic
   def send_money(sender, receiver, amount)
     sender.pay(amount)
     receiver.deposit(amount)

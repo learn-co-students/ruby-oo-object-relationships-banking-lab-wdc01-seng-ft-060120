@@ -21,6 +21,7 @@ class BankAccount
         return "Your balance is $#{self.balance}."
     end
 
+    #does not consider outgoing amount
     def valid?        
         return false if self.status != "open" || self.balance  <= 0
 
